@@ -6,6 +6,7 @@ console.info(wp.blockEditor);
 
 import { ReactComponent as Logo } from "../sf-logo.svg";
 import logoWhiteURL from "../sf-logo-white.svg";
+import placeholder from "../1920x1080.png";
 
 registerBlockType("studifood/aboutus", {
   title: __("About us", "studifood"),
@@ -28,7 +29,7 @@ registerBlockType("studifood/aboutus", {
       source: "attribute",
       selector: ".studifood-logo img",
       attribute: "src",
-      default: logoWhiteURL
+      default: placeholder
     }
   },
 
@@ -52,7 +53,8 @@ registerBlockType("studifood/aboutus", {
 
     // Grab imageObject, set the value of episodeImage to imageObject.sizes.studifoodFeatImg.url.
     const onImageSelect = imageObject => {
-      setAttributes({ AboutUsImage: imageObject.sizes.studifoodFeatImg.url });
+      console.log("image", imageObject);
+      setAttributes({ AboutUsImage: imageObject.sizes.large.url });
     };
 
     return (
@@ -108,14 +110,14 @@ registerBlockType("studifood/aboutus", {
         <div class="container">
           <div class="row">
             <div class="col-md-6 col-12">
-              <h2 className="studifood-abouttitle" >
+              <h2 className="studifood-abouttitle" data-aos="fade-down">
                 <RichText.Content value={AboutUsTitle} />
               </h2>
-              <p className="studifood-abouttext">
+              <p className="studifood-abouttext" data-aos="fade-right">
                 <RichText.Content value={AboutUsText} />
               </p>
             </div>
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12" data-aos="fade">
               <figure className="studifood-logo">
                 <img src={AboutUsImage} alt="logo" />
               </figure>

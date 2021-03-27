@@ -38,7 +38,7 @@ registerBlockType("studifood/featured-recipes", {
 
     return (
       <div className={`${className} studifood-block studifood-dynamic`} >
-        <div class="studifood-editor-block-headline">StudiFood :: FeaturesRecipes - Recipe Block</div>
+        <div class="studifood-editor-block-headline">StudiFood :: FeaturedRecipes - Recipe Block</div>
         <p class="studifood-editor-block-headline"> AUSGABE NUR IM FRONTEND :: HIER GIBT ES NICHTS ZU BEARBEITEN :) <br/>2 FEATURED RECIPES</p>
       </div>
     );

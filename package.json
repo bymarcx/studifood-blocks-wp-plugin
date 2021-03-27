@@ -11,5 +11,8 @@
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build"
+  },
+  "dependencies": {
+    "file-loader": "^6.2.0"
   }
 }

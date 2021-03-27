@@ -8,6 +8,8 @@ console.info(wp.blockEditor);
 
 import { ReactComponent as Logo } from "../sf-logo.svg";
 import logoWhiteURL from "../sf-logo-white.svg";
+import placeholder from "../1920x1080.png";
+
 
 registerBlockType("studifood/featured-posts-head", {
     title: __("Featured Recipies Head", "studifood"),
@@ -28,9 +30,9 @@ registerBlockType("studifood/featured-posts-head", {
         FeaturedHeadImage: {
             type: "string",
             source: "attribute",
-            selector: ".studifood-logo img",
+            selector: ".headline-box img",
             attribute: "src",
-            default: logoWhiteURL
+            default: placeholder
         }
     },
 
@@ -54,7 +56,7 @@ registerBlockType("studifood/featured-posts-head", {
 
         // Grab imageObject, set the value of episodeImage to imageObject.sizes.studifoodFeatImg.url.
         const onImageSelect = imageObject => {
-            setAttributes({ FeaturedHeadImage: imageObject.sizes.studifoodFeatImg.url });
+            setAttributes({ FeaturedHeadImage: imageObject.sizes.large.url });
         };
 
         return (
@@ -65,11 +67,11 @@ registerBlockType("studifood/featured-posts-head", {
                         initialOpen={true}
                     >
                         <div className="editor-post-featured-image">
-                            ...We will add code here...
                             <MediaUpload
                                 onSelect={onImageSelect}
                                 allowedTypes={ 'image' }
                                 type="image"
+                                value={FeaturedHeadImage}
                                 render={({ open }) => {
                                     return (
                                         <button onClick={open}>
@@ -84,7 +86,7 @@ registerBlockType("studifood/featured-posts-head", {
                     </PanelBody>
                 </InspectorControls>
                 <div className={`studifood-block studifood-editable`}>
-                    <div class="studifood-editor-block-headline">StudiFood :: FeaturesRecipes - Head Block</div>
+                    <div class="studifood-editor-block-headline">StudiFood :: FeaturedRecipes - Head Block</div>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 element-1">
@@ -140,11 +142,13 @@ registerBlockType("studifood/featured-posts-head", {
                         <div class="col-12 offset-xl-1 col-xl-10">
                             <div class="row">
                                 <div class="col-12 headline-box" data-aos="fade" >
-                                    <div class="headline-box-inner">
-                                        <h2 className="studifood-FeaturedHeadTitle" >
+                                    <div class="headline-box-bg-overlay"></div>
+                                        <img class="headline-box-bg" src={ FeaturedHeadImage }/>
+                                        <div class="headline-box-inner">
+                                        <h2 className="studifood-FeaturedHeadTitle" data-aos="fade-right">
                                             <RichText.Content value={FeaturedHeadTitle} />
                                         </h2>
-                                        <p className="studifood-FeaturedHeadText">
+                                        <p className="studifood-FeaturedHeadText" data-aos="fade" data-aos-delay="300">
                                             <RichText.Content value={FeaturedHeadText} />
                                         </p>
                                     </div>
