@@ -1,5 +1,6 @@
 {
-  "name": "podkit",
+  "name": "studifood_blocks_wp_plugin",
+  "description": "StudiFood Blocks:: 21",
   "version": "1.0.0",
   "license": "GPL-3.0-or-later",
   "main": "src/index.js",
