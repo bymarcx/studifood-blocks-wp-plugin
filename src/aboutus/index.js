@@ -4,9 +4,9 @@ const { RichText, MediaUpload } = wp.blockEditor;
 
 console.info(wp.blockEditor);
 
-import { ReactComponent as Logo } from "../sf-logo.svg";
-import logoWhiteURL from "../sf-logo-white.svg";
-import placeholder from "../1920x1080.png";
+import { ReactComponent as Logo } from "../img/sf-logo.svg";
+import logoWhiteURL from "../img/sf-logo-white.svg";
+import placeholder from "../img/1920x1080.png";
 
 registerBlockType("studifood/aboutus", {
   title: __("About us", "studifood"),
@@ -110,10 +110,10 @@ registerBlockType("studifood/aboutus", {
         <div class="container">
           <div class="row">
             <div class="col-md-6 col-12">
-              <h2 className="studifood-abouttitle" data-aos="fade-down">
+              <h2 className="studifood-abouttitle" data-aos="fade-right">
                 <RichText.Content value={AboutUsTitle} />
               </h2>
-              <p className="studifood-abouttext" data-aos="fade-right">
+              <p className="studifood-abouttext" data-aos="fade"> 
                 <RichText.Content value={AboutUsText} />
               </p>
             </div>

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: StudiFood - Custom Blocks
  * Plugin URI: studifood.com
- * Description: 21 :: Custom block plugin for StudiFood".
+ * Description: 21 :: Custom block plugin for StudiFood
  * Version: 1.0.0
  * Author: Marc Eberhard
  * Author URI: bymarc.media
@@ -113,27 +113,29 @@ function studifood_register_blocks() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )		// set version as file last modified time
 	);
 
-	// Register the block editor stylesheet.
-	wp_register_style(
-		'studifood-editor-styles',											// label
-		plugins_url( 'build/editor.css', __FILE__ ),					// CSS file
-		array( 'wp-edit-blocks' ),										// dependencies
-		filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )	// set version as file last modified time
-	);
+	// // Register the block editor stylesheet.
+	// wp_register_style(
+	// 	'studifood-editor-styles',											// label
+	// 	plugins_url( 'build/editor.css', __FILE__ ),					// CSS file
+	// 	array( 'wp-edit-blocks' ),										// dependencies
+	// 	filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )	// set version as file last modified time
+	// );
 
-	// Register the front-end stylesheet.
-	wp_register_style(
-		'studifood-front-end-styles',										// label
-		plugins_url( 'build/style.css', __FILE__ ),						// CSS file
-		array( ),														// dependencies
-		filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )	// set version as file last modified time
-	);
+	// // Register the front-end stylesheet.
+	// wp_register_style(
+	// 	'studifood-front-end-styles',										// label
+	// 	plugins_url( 'build/style.css', __FILE__ ),						// CSS file
+	// 	array( ),														// dependencies
+	// 	filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )	// set version as file last modified time
+	// );
 
 	// Array of block created in this plugin.
 	$blocks = [
 		// 'podkit/media',
 		'studifood/aboutus',
+		'studifood/ownrecipe',
 		'studifood/featured-posts-head',
+		'studifood/offsetblock',
 	];
 	
 	// Loop through $blocks and register each block with the same script and styles.
@@ -190,14 +192,14 @@ function studifood_block_classes( $attributes ) {
  * 
  * $post - object - The post object.
  */ 
-function studifood_post_img( $post ) {
-	$studifood_img = get_the_post_thumbnail( $post, 'studifoodFeatImg' );
-	if ( empty( $studifood_img ) ) {
-		$url = plugins_url( "src/sf-logo-white.svg", __FILE__ );
-		$studifood_img = '<img src="' . $url . '" alt="Das ist StudiFood." />';
-	}
-	return $studifood_img;
-}
+// function studifood_post_img( $post ) {
+// 	$studifood_img = get_the_post_thumbnail( $post, 'studifoodFeatImg' );
+// 	if ( empty( $studifood_img ) ) {
+// 		$url = plugins_url( "src/sf-logo-white.svg", __FILE__ );
+// 		$studifood_img = '<img src="' . $url . '" alt="Das ist StudiFood." />';
+// 	}
+// 	return $studifood_img;
+// }
 
 /**
  * Render the saved output from the dynamic block.
@@ -213,8 +215,9 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 	$recent_posts = wp_get_recent_posts ( array(
 			'post_type' => 'recipes',
             'posts_per_page' => 2,
+			'meta_key' => 'wprm_rating_average',
             'orderby' => 'wprm_rating_average',
-            'order' => 'ASC',
+            'order' => 'DESC',
 	) );
 	
 	// Check if any posts were returned, if not, say so.
@@ -251,19 +254,19 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 			//echo("<div class=\"img_overlay\"></div>" );
 	
 
-	$test = '<div class="section widget_featuredrecipeswidget"><div class="container">
+	$blockcontent = '<section class="section widget_featuredrecipeswidget nomargintop"><div class="container">
 	<div class="row">
 	<div class="col-12 offset-xl-1 col-xl-10">
                             <div class="row">
 	<div class="col-md-0 col-xxl-3 order-1"></div>
 
-                        <div class=" order-3 order-lg-2 col-md-12 col-lg-4 col-xxl-3 all-recipes" data-aos="fade-up"><div class="all-recipes-inner">
+                        <div class=" order-3 order-lg-2 col-md-12 col-lg-4 col-xxl-3 all-recipes" data-aos="fade"><div class="all-recipes-inner">
                             <a href="./rezepte" class="btn btn-secondary">Alle Rezepte</a>
                         </div></div>
 
 	'.     
 	sprintf(
-		'<div class="col-lg-4 order-2 order-lg-3 col-xxl-3 recipe-card" data-aos="fade-up">
+		'<div class="col-lg-4 order-2 order-lg-3 col-xxl-3 recipe-card" data-aos="fade">
 				<a href="%2$s">
 						<p>%3$s</p>
 						<div class="img_overlay"></div>
@@ -276,7 +279,7 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 		$recipe->image(1920,1080),		
 		__("BLA", "studifood")
 	) . sprintf(
-		'<div class="col-lg-4 order-2 order-lg-3 col-xxl-3 recipe-card" data-aos="fade-up">
+		'<div class="col-lg-4 order-2 order-lg-3 col-xxl-3 recipe-card" data-aos="fade">
 			<a href="%2$s">
 				<p>%3$s</p>
 				<div class="img_overlay"></div>
@@ -287,10 +290,10 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 	esc_url( get_the_permalink($post2) ),
 	esc_html( $recipe2->name() ),
 	$recipe2->image(1920,1080),	
-	). '</div></div></div></div></div>' ;
+	). '</div></div></div></div></section>' ;
 
 
-	return $test;
+	return $blockcontent;
 
 
 

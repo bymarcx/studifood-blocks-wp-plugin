@@ -3,8 +3,8 @@ const { registerBlockType } = wp.blocks;
 const { RichText } = wp.blockEditor;
 const { withSelect } = wp.data;
 
-import { ReactComponent as Logo } from "../sf-logo.svg";
-import logoWhiteURL from "../sf-logo-white.svg";
+import { ReactComponent as Logo } from "../img/sf-logo.svg";
+import logoWhiteURL from "../img/sf-logo-white.svg";
 
 registerBlockType("studifood/featured-recipes", {
   title: __("Two featured recipes", "studifood"),

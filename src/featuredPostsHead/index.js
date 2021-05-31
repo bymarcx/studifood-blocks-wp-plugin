@@ -6,9 +6,9 @@ const { RichText, MediaUpload, InspectorControls } = wp.blockEditor;
 
 console.info(wp.blockEditor);
 
-import { ReactComponent as Logo } from "../sf-logo.svg";
-import logoWhiteURL from "../sf-logo-white.svg";
-import placeholder from "../1920x1080.png";
+import { ReactComponent as Logo } from "../img/sf-logo.svg";
+import logoWhiteURL from "../img/sf-logo-white.svg";
+import placeholder from "../img/1920x1080.png";
 
 
 registerBlockType("studifood/featured-posts-head", {
@@ -107,23 +107,6 @@ registerBlockType("studifood/featured-posts-head", {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div class="col-md-6 element-2">
-                            <figure className="studifood-logo">
-                                <MediaUpload
-                                    onSelect={onImageSelect}
-                                    allowedTypes={'image'}
-                                    type="image"
-                                    value={FeaturedHeadImage}
-                                    render={({ open }) => {
-                                        return <img
-                                            src={FeaturedHeadImage}
-                                            onClick={open}
-                                        />;
-                                    }
-                                    }
-                                />
-                            </figure>
-                        </div> */}
                         </div>
                     </div>
                 </div>
