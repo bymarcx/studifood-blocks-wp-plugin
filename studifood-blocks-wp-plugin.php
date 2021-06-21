@@ -133,6 +133,7 @@ function studifood_register_blocks() {
 	$blocks = [
 		// 'podkit/media',
 		'studifood/aboutus',
+		'studifood/aboutus2',
 		'studifood/ownrecipe',
 		'studifood/featured-posts-head',
 		'studifood/offsetblock',

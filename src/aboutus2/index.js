@@ -1,0 +1,119 @@
+const { __ } = wp.i18n;
+const { registerBlockType } = wp.blocks;
+const { RichText, MediaUpload, InnerBlocks, useBlockProps } = wp.blockEditor;
+
+console.info(wp.blockEditor);
+
+import { ReactComponent as Logo } from "../img/sf-logo.svg";
+import logoWhiteURL from "../img/sf-logo-white.svg";
+import placeholder from "../img/1920x1080.png";
+
+registerBlockType("studifood/aboutus2", {
+  title: __("About us - Slider", "studifood"),
+  icon: { src: Logo },
+  category: "studifood",
+  attributes: {
+    AboutUsTitle: {
+      type: "string",
+      source: "html",
+      selector: ".studifood-abouttitle"
+    },
+    AboutUsText: {
+      type: "array",
+      source: "children",
+      multiline: "p",
+      selector: ".studifood-abouttext"
+    },
+    // AboutUsImage: {
+    //   type: "string",
+    //   source: "attribute",
+    //   selector: ".studifood-logo img",
+    //   attribute: "src",
+    //   default: placeholder
+    // }
+  },
+
+  edit: props => {
+    const blockProps = useBlockProps();
+
+    // Lift info from props and populate various constants.
+    const {
+      attributes: { AboutUsTitle, AboutUsText, AboutUsImage },
+      className,
+      setAttributes
+    } = props;
+
+    // Grab newEpisodeTitle, set the value of episodeTitle to newEpisodeTitle.
+    const onChangeAboutUsTitle = newAboutUsTitle => {
+      setAttributes({ AboutUsTitle: newAboutUsTitle });
+    };
+
+    const onChangeAboutUsText = newAboutUsText => {
+      setAttributes({ AboutUsText: newAboutUsText });
+    };
+
+    // Grab imageObject, set the value of episodeImage to imageObject.sizes.studifoodFeatImg.url.
+    // const onImageSelect = imageObject => {
+    //   console.log("image", imageObject);
+    //   setAttributes({ AboutUsImage: imageObject.sizes.large.url });
+    // };
+
+    return (
+      <div className={`studifood-block studifood-editable`}>
+        <div class="studifood-editor-block-headline">StudiFood :: About us Block</div>
+        <div class="container-1">
+          <div class="col-1">
+            <div className="studifood-info">
+              <h2 className="studifood-abouttitle">
+                <RichText
+                  placeholder={__("Wir über uns!", "studifood")}
+                  value={AboutUsTitle}
+                  onChange={onChangeAboutUsTitle}
+                />
+              </h2>
+              <div className="studifood-abouttext">
+                <RichText
+                  placeholder={__("Beschreibung über StudiFood...", "studifood")}
+                  onChange={onChangeAboutUsText}
+                  value={AboutUsText}
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <div {...blockProps}>
+              <InnerBlocks />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  save: props => {
+    const {
+      attributes: { AboutUsImage, AboutUsText, AboutUsTitle }
+    } = props;
+
+    const blockProps = useBlockProps.save();
+
+    return (
+      <section class="widget_aboutuswidget">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <h2 className="studifood-abouttitle" data-aos="fade-right">
+                <RichText.Content value={AboutUsTitle} />
+              </h2>
+              <p className="studifood-abouttext" data-aos="fade">
+                <RichText.Content value={AboutUsText} />
+              </p>
+            </div>
+            <div class="col-md-6 col-12" data-aos="fade" {...blockProps}>
+              <InnerBlocks.Content />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+});
