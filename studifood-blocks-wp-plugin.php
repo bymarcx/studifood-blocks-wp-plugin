@@ -113,22 +113,6 @@ function studifood_register_blocks() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )		// set version as file last modified time
 	);
 
-	// // Register the block editor stylesheet.
-	// wp_register_style(
-	// 	'studifood-editor-styles',											// label
-	// 	plugins_url( 'build/editor.css', __FILE__ ),					// CSS file
-	// 	array( 'wp-edit-blocks' ),										// dependencies
-	// 	filemtime( plugin_dir_path( __FILE__ ) . 'build/editor.css' )	// set version as file last modified time
-	// );
-
-	// // Register the front-end stylesheet.
-	// wp_register_style(
-	// 	'studifood-front-end-styles',										// label
-	// 	plugins_url( 'build/style.css', __FILE__ ),						// CSS file
-	// 	array( ),														// dependencies
-	// 	filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )	// set version as file last modified time
-	// );
-
 	// Array of block created in this plugin.
 	$blocks = [
 		// 'podkit/media',
@@ -176,31 +160,10 @@ function studifood_register_blocks() {
  */
 function studifood_block_classes( $attributes ) {
 	$classes = null;
-	// if ( $attributes['align'] ) {
-	// 	$classes = 'align' . $attributes['align'] . ' ';
-	// }
-
-	// if ( $attributes['className'] ) {
-	// 	$classes .= $attributes['className']; 
-	// }
 
 	return $classes;
 }
 
-/**
- * Serve up featured image is available, otherwise serve up logo.
- * Returns <img> element.
- * 
- * $post - object - The post object.
- */ 
-// function studifood_post_img( $post ) {
-// 	$studifood_img = get_the_post_thumbnail( $post, 'studifoodFeatImg' );
-// 	if ( empty( $studifood_img ) ) {
-// 		$url = plugins_url( "src/sf-logo-white.svg", __FILE__ );
-// 		$studifood_img = '<img src="' . $url . '" alt="Das ist StudiFood." />';
-// 	}
-// 	return $studifood_img;
-// }
 
 /**
  * Render the saved output from the dynamic block.
@@ -215,6 +178,7 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 	// Get the latest posts using wp_get_recent_posts().
 	$recent_posts = wp_get_recent_posts ( array(
 			'post_type' => 'recipes',
+			'post_status' => 'publish',
             'posts_per_page' => 2,
 			'meta_key' => 'wprm_rating_average',
             'orderby' => 'wprm_rating_average',
@@ -295,8 +259,6 @@ function studifood_dynamic_render_callback( $attributes, $content ) {
 
 
 	return $blockcontent;
-
-
 
 	// Reset postdata to avoid conflicts.
 	wp_reset_postdata();
